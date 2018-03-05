@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicSubmission", "PublicS
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9FE3B1E4-AB6B-4EDF-AE0E-9CB1E727A27A}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SpacyTrainer", "..\SpacyTrainer\SpacyTrainer.pyproj", "{735BC302-51B7-4E60-96F4-AB00656A5393}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SpacyTrainer", "SpacyTrainer\SpacyTrainer.pyproj", "{735BC302-51B7-4E60-96F4-AB00656A5393}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
