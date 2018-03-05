@@ -1,4 +1,5 @@
 falcon
+falcon_cors
 spacy-nightly==2.0.0rc2
 pytest
 gunicorn

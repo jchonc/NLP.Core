@@ -3,12 +3,20 @@ version: '3'
 services:
   publicsubmission:
     image: nlpcore/publicsubmission
+    ports:
+      - 8080:8080
     build:
       context: .
       dockerfile: PublicSubmission/Dockerfile
+      
+    depends_on:
+      - spacy-rest
 
   spacy-rest:
     image: nlpcore/spacy-rest
-    build:
-      context: .
-      dockerfile: SpacyServer/Dockerfile
+    ports:
+      - 8000:8000
+    build: 
+      context: SpacyServer
+    volumes:
+      - .:/SpacyServer
