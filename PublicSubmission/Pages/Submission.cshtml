@@ -1,0 +1,86 @@
+﻿@page
+@model PublicSubmission.Pages.SubmissionModel
+@{
+    ViewData["Title"] = "Submission";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+
+<h2>Submission</h2>
+
+Your Comment: <br />
+<textarea id="taComment" cols="50" rows="5">
+Pastafarians are smarter than people with Coca Cola bottles.
+</textarea>
+<button type="button" onclick="digestSubmission()">Digest</button>
+<div id="dvNER"></div>
+<hr />
+<div id="dvClass">
+    <div><span>Classifications:</span><span id="spClasses"></span></div>
+    <div><span>Severity:</span><span id="spSeverity"></span></div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        function digestSubmission() {
+            const submission = $("#taComment").val();
+            const url = "http://localhost:8000/ent";
+            const submissionData = {
+                text: submission
+            };
+            $.ajax(url, {
+                data: JSON.stringify(submissionData),
+                contentType: 'application/json',
+                crossDomain: true,
+                type: 'POST',
+                success: function (response) {
+                    document.getElementById("dvNER").innerHTML = response;
+                    const url2 = "http://localhost:8000/cls"
+                    $.ajax(url2, {
+                        data: JSON.stringify(submissionData),
+                        contentType: 'application/json',
+                        crossDomain: true,
+                        dataType: 'json',
+                        type: 'POST',
+                        success: function (ratings) {
+                            let classes = [];
+                            let severities = [];
+                            for (let k in ratings) {
+                                let rate = ratings[k];
+                                if (k.startsWith('Severity')) {
+                                    severities.push({name: k, value: rate});
+                                }
+                                else {
+                                    classes.push({ name: k, value: rate });
+                                }
+                            }
+                            let sortedClasses = classes.sort(function (a, b) {
+                                return b.value - a.value;
+                            });
+                            let sortedSeverity = severities.sort(function (a, b) {
+                                return b.value - a.value;
+                            });
+                            let guessedClasses = "";
+                            for (let i = 0; i < 3; i++) {
+                                if (guessedClasses) {
+                                    guessedClasses += ",<br/> ";
+                                }
+                                guessedClasses += sortedClasses[i].name + "(" + sortedClasses[i].value + ")";                            
+                            }
+                            $("#spClasses").html(guessedClasses);
+                            let guessedSeverity = "";
+                            for (let i = 0; i < 3; i++) {
+                                if (guessedSeverity) {
+                                    guessedSeverity += ",<br/> ";
+                                }
+                                guessedSeverity += sortedSeverity[i].name + "(" + sortedSeverity[i].value + ")";
+                            }
+                            $("#spSeverity").html(guessedSeverity);
+                        }
+                    });
+                }
+            });
+
+        }
+    </script>
+}

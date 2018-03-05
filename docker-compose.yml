@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  publicsubmission:
+    image: nlpcore/publicsubmission
+    build:
+      context: .
+      dockerfile: PublicSubmission/Dockerfile
+
+  spacy-rest:
+    image: nlpcore/spacy-rest
+    build:
+      context: .
+      dockerfile: SpacyServer/Dockerfile
