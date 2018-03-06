@@ -20,6 +20,11 @@
     <DebugSymbols>true</DebugSymbols>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Mixed' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <OutputPath>bin\Mixed\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="displacy_service\parse.py" />
     <Compile Include="displacy_service\server.py" />
