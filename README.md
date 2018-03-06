@@ -20,7 +20,31 @@ The code of this article can be found at [here](https://github.com/rlrnd/NLP.Cor
 
 ### Using historic data to train the classifier
 
-We are extracting the top 3000 incident file, and using the description field and general incident classification and severity as the original training data. 
+We are extracting the top 3000 incident file, and using the description field and general incident classification and severity as the original training data. We noticed the tier number stopped helping after 7 thus we leaved it there. 
+
+```
+Load 4951 incidents
+Using 2951 as training data, 999 as test data)
+Training the model...
+LOSS      P       R       F
+928.308 0.748   0.019   0.036
+581.201 0.711   0.024   0.047
+435.476 0.702   0.026   0.049
+341.327 0.684   0.027   0.052
+276.818 0.679   0.028   0.054
+228.734 0.672   0.028   0.055
+202.960 0.668   0.029   0.055
+Saved model to model
+```
+
+### Testing the accuracy
+
+We have then continue to use the next 1000 records to verify the accuracy and the results are somewhat better than we thought. 
+
+```
+Good guess (top 3) on classification: 815  of  1000
+Good guess (top 3) on severity: 738  of  1000
+```
 
 ### Using a docker container to host SpaCy API. 
 Due to the recent upgrade we can start to leverage Python stack in VisualStudio.NET environment now so it worked quite well in our case.  So a restful API was created using [Falcon](https://falconframework.org/) and wrapped with a simple docker container.
@@ -41,16 +65,14 @@ This container will expose on port 8000 and serve /ent and /cls for named entity
 
 From the C# web project, we can forward the incoming text to the SpaCy API and get 2 pieces of information back. First is the marked content of where the PERSON/DATE/LOCATION and 2nd is the likelyhood of the categories/severity. 
 
-![Screenshot of submission]()
+![Screenshot of submission](https://github.com/rlrnd/NLP.Core/raw/master/Submission.gui.png)
 
+### Feedback link
 
-
-
-
-
-
-
-
+If the first case handler is not happy with the result, he/she should manually mark the file and later those results can be send back to the SpaCy API for retraining. However, this process might be time consuming thus need to happen in batches. 
 
 ## Misc.
+
+SpaCy can also been used to help de-identify the data to identify the person names, dates and location/organizations. But probably direct keyword search on MRN, DOB or License can happen before that.
+
 
