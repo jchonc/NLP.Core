@@ -20,7 +20,7 @@ The code of this article can be found at [here](https://github.com/rlrnd/NLP.Cor
 
 ### Using historic data to train the classifier
 
-We are extracting the top 3000 incident file, and using the description field and general incident classification and severity as the original training data. We noticed the tier number stopped helping after 7 thus we leaved it there.
+We have extracted ~3000 incident files, and using the description field and general incident classification and severity as the original training data. We noticed the tier number stopped helping after 7 thus we leaved it there.
 
 ```
 Load 4951 incidents
