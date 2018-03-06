@@ -20,7 +20,7 @@ The code of this article can be found at [here](https://github.com/rlrnd/NLP.Cor
 
 ### Using historic data to train the classifier
 
-We are extracting the top 3000 incident file, and using the description field and general incident classification and severity as the original training data. We noticed the tier number stopped helping after 7 thus we leaved it there. 
+We are extracting the top 3000 incident file, and using the description field and general incident classification and severity as the original training data. We noticed the tier number stopped helping after 7 thus we leaved it there.
 
 ```
 Load 4951 incidents
@@ -74,5 +74,3 @@ If the first case handler is not happy with the result, he/she should manually m
 ## Misc.
 
 SpaCy can also been used to help de-identify the data to identify the person names, dates and location/organizations. But probably direct keyword search on MRN, DOB or License can happen before that.
-
-
